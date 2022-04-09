@@ -28,6 +28,20 @@ const getGoals = async (token) => {
   return response.data
 }
 
+// Get user goals
+const getSingleGoal = async (goalId, token) => {
+  console.log(goalId, token)
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+
+  const response = await axios.get(API_URL + goalId, config)
+
+  return response.data
+}
+
 // Update Goal
 const updateGoal = async (goalId, goalData, token) => {
   const config = {
@@ -58,6 +72,7 @@ const deleteGoal = async (goalId, token) => {
 const goalService = {
   createGoal,
   getGoals,
+  getSingleGoal,
   deleteGoal,
   updateGoal
 }

@@ -12,18 +12,23 @@ function Dashboard() {
   const dispatch = useDispatch()
 
   const { user } = useSelector((state) => state.auth)
-  const { goals, isLoading, isError, message } = useSelector((state) => state.goals)
+  const { goals, isLoading, isError, isSuccess, message } = useSelector((state) => state.goals)
 
   useEffect(()=> {
     if(isError){
-      console.log(message)
       toast.error(message)
     }
+
     if(!user){
       navigate('/login')
+    }else{
+      dispatch(getGoals())
     }
-
-    dispatch(getGoals())
+    
+    if(isSuccess && message !== ''){
+      toast.success(message)
+    }
+    
 
     return () => {
       dispatch(resetGoals)

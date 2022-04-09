@@ -1,18 +1,16 @@
 import { useState, useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom"
 import { deleteGoal, updateGoal } from '../features/goals/goalSlice'
 
 function GoalItem({goal}) {
+
 
   const [goalData, setGoalData] = useState(goal)
 
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    setGoalData(goal)
-  },[])
-
-  const onClick = () => {
+  const onDelete = () => {
     dispatch(deleteGoal(goal._id))
   }
 
@@ -36,11 +34,14 @@ function GoalItem({goal}) {
 
   return (
     <div className="goal">
+      <div className="">
+        <Link to={`/goals/${goal._id}`}>Details</Link>
+      </div>
       <div>
         {new Date(goal.createdAt).toLocaleString('de-DE')}
       </div>
       <h2>{goal.text}</h2>
-      <button onClick={onClick} className="close">X</button>
+      <button onClick={onDelete} className="close">X</button>
       <form className="form">
         <div className="form-group">
           <input type="text" defaultValue={goalData.text} onChange={onChange} />

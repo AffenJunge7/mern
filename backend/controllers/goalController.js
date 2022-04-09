@@ -11,6 +11,15 @@ const getGoals = asyncHandler(async (req, res) => {
   res.status(200).json(goals)
 })
 
+//  @desc     Get single Goal
+//  @route    GET /api/goals/:id
+//  @access   Private
+const getGoal = asyncHandler(async (req, res) => {
+  const goal = await Goal.findById(req.params.id)
+
+  res.status(200).json(goal)
+})
+
 //  @desc     Set Goal
 //  @route    POST /api/goals
 //  @access   Private
@@ -25,7 +34,7 @@ const setGoal = asyncHandler(async (req, res) => {
     user: req.user.id
   })
 
-  res.status(200).json(goal)
+  res.status(200).json(goal._id)
 })
 
 //  @desc     Update Goals
@@ -86,6 +95,7 @@ const deleteGoal = asyncHandler(async (req, res) => {
 
 module.exports = {
   getGoals,
+  getGoal,
   setGoal,
   updateGoal,
   deleteGoal
